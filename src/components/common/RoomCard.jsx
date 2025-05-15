@@ -39,7 +39,7 @@ const RoomCard = ({ room, onBookNow }) => {
           </Stack>
           <Stack direction="row" spacing={1} alignItems="center">
             <Paid fontSize="small" color="primary" />
-            <Typography variant="body2">${price.toFixed(2)} per hour</Typography>
+            <Typography variant="body2">₱{price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per hour</Typography>
           </Stack>
         </Stack>
         

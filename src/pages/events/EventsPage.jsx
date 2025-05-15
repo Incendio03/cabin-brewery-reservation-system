@@ -168,7 +168,7 @@ const EventsPage = () => {
                       Tickets: {ticketCount}
                     </Typography>
                     <Typography variant="body2">
-                      Price: ${(selectedEvent?.ticketPrice * ticketCount).toFixed(2)}
+                      Price: ₱{(selectedEvent?.ticketPrice * ticketCount).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </Typography>
                   </Stack>
                 </Box>
@@ -189,7 +189,7 @@ const EventsPage = () => {
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                         <MenuItem key={num} value={num}>
-                          {num} {num === 1 ? 'ticket' : 'tickets'} (${(selectedEvent?.ticketPrice * num).toFixed(2)})
+                          {num} {num === 1 ? 'ticket' : 'tickets'} (₱{(selectedEvent?.ticketPrice * num).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})
                         </MenuItem>
                       ))}
                     </Select>
@@ -208,10 +208,10 @@ const EventsPage = () => {
                   <Stack spacing={1} sx={{ mb: 2 }}>
                     <Stack direction="row" justifyContent="space-between">
                       <Typography variant="body2">
-                        Tickets ({ticketCount} x ${selectedEvent?.ticketPrice.toFixed(2)})
+                        Tickets ({ticketCount} x ₱{selectedEvent?.ticketPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})
                       </Typography>
                       <Typography variant="body2">
-                        ${(selectedEvent?.ticketPrice * ticketCount).toFixed(2)}
+                        ₱{(selectedEvent?.ticketPrice * ticketCount).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </Typography>
                     </Stack>
                     <Stack direction="row" justifyContent="space-between">
@@ -219,7 +219,7 @@ const EventsPage = () => {
                         Service Fee
                       </Typography>
                       <Typography variant="body2">
-                        $0.00
+                        ₱0.00
                       </Typography>
                     </Stack>
                     <Divider sx={{ my: 1 }} />
@@ -228,7 +228,7 @@ const EventsPage = () => {
                         Total
                       </Typography>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        ${(selectedEvent?.ticketPrice * ticketCount).toFixed(2)}
+                        ₱{(selectedEvent?.ticketPrice * ticketCount).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </Typography>
                     </Stack>
                   </Stack>

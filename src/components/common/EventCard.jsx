@@ -59,7 +59,7 @@ const EventCard = ({ event, onBookNow }) => {
           </Stack>
           <Stack direction="row" spacing={1} alignItems="center">
             <LocalOffer fontSize="small" color="primary" />
-            <Typography variant="body2">${ticketPrice.toFixed(2)} per person</Typography>
+            <Typography variant="body2">₱{ticketPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per person</Typography>
           </Stack>
         </Stack>
         

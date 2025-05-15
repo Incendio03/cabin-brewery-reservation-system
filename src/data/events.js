@@ -8,7 +8,7 @@ export const events = [
     time: '8:00 PM - 11:00 PM',
     description: 'Enjoy an evening with Cup of Joe, a local indie band known for their mellow acoustic tunes and coffee-inspired melodies.',
     image: '/images/CupOfJoe.jpg',
-    ticketPrice: 15.99,
+    ticketPrice: 500.00,
     available: true,
   },
   {
@@ -18,7 +18,7 @@ export const events = [
     time: '9:00 PM - 12:00 AM',
     description: 'Dance the night away with The Syncs, bringing their signature blend of synth-pop and electronic beats to our brewery.',
     image: '/images/The Syncs.jpg',
-    ticketPrice: 18.99,
+    ticketPrice: 750.00,
     available: true,
   },
   {
@@ -28,7 +28,7 @@ export const events = [
     time: '7:30 PM - 10:30 PM',
     description: 'Discover The Secret, an enigmatic jazz ensemble that combines traditional jazz with modern influences for a unique musical experience.',
     image: '/images/TheSecret.jpg',
-    ticketPrice: 20.99,
+    ticketPrice: 1000.00,
     available: true,
   }
 ];
