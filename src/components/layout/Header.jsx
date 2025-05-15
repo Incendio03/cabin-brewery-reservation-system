@@ -41,11 +41,33 @@ const Header = () => {
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
-
   // Mobile drawer component
   const drawer = (
     <Box sx={{ width: 250 }} role="presentation">
-      <Box display="flex" justifyContent="flex-end" p={1}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" p={2} borderBottom={1} borderColor="divider">
+        <Box display="flex" alignItems="center">
+          <Box
+            component="img"
+            src="/images/CabinBreweryLogo.jpg"
+            alt="The Cabin Brewery Logo"
+            sx={{
+              height: 30,
+              mr: 1,
+              borderRadius: 1,
+            }}
+          />
+          <Typography
+            variant="h6"
+            sx={{
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: 700,
+              color: 'primary.main',
+              fontSize: '1.2rem'
+            }}
+          >
+            The Cabin Brewery
+          </Typography>
+        </Box>
         <IconButton onClick={handleDrawerToggle}>
           <CloseIcon />
         </IconButton>
@@ -81,24 +103,39 @@ const Header = () => {
   return (
     <AppBar position="sticky" color="default" elevation={1}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
+        <Toolbar disableGutters>          <Box
             component={Link}
             to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Playfair Display, serif',
-              fontWeight: 700,
-              color: 'primary.main',
+              alignItems: 'center',
               textDecoration: 'none',
-              fontSize: '1.5rem'
             }}
           >
-            The Cabin Brewery
-          </Typography>
+            <Box
+              component="img"
+              src="/images/CabinBreweryLogo.jpg"
+              alt="The Cabin Brewery Logo"
+              sx={{
+                height: 40,
+                mr: 1,
+                borderRadius: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 700,
+                color: 'primary.main',
+                fontSize: '1.5rem'
+              }}
+            >
+              The Cabin Brewery
+            </Typography>
+          </Box>
 
           {/* Mobile menu icon */}
           {isMobile && (
@@ -112,25 +149,39 @@ const Header = () => {
             >
               <MenuIcon />
             </IconButton>
-          )}
-
-          {/* Mobile title */}
-          <Typography
-            variant="h6"
-            noWrap
+          )}          {/* Mobile title */}
+          <Box
             component={Link}
             to="/"
             sx={{
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
-              fontFamily: 'Playfair Display, serif',
-              fontWeight: 700,
-              color: 'primary.main',
+              alignItems: 'center',
               textDecoration: 'none',
             }}
           >
-            The Cabin Brewery
-          </Typography>
+            <Box
+              component="img"
+              src="/images/CabinBreweryLogo.jpg"
+              alt="The Cabin Brewery Logo"
+              sx={{
+                height: 36,
+                mr: 1,
+                borderRadius: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 700,
+                color: 'primary.main',
+              }}
+            >
+              The Cabin Brewery
+            </Typography>
+          </Box>
 
           {/* Desktop navigation */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
