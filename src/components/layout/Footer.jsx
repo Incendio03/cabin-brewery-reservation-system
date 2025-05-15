@@ -14,16 +14,26 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography 
-              variant="h6" 
-              gutterBottom
-              fontFamily="Playfair Display, serif"
-              fontWeight={700}
-            >
-              The Cabin Brewery
-            </Typography>
+        <Grid container spacing={4}>          <Grid item xs={12} sm={6} md={3}>
+            <Box display="flex" alignItems="center" mb={2}>
+              <Box
+                component="img"
+                src="/images/CabinBreweryLogo.jpg"
+                alt="The Cabin Brewery Logo"
+                sx={{
+                  height: 40,
+                  mr: 1,
+                  borderRadius: 1,
+                }}
+              />
+              <Typography 
+                variant="h6" 
+                fontFamily="Playfair Display, serif"
+                fontWeight={700}
+              >
+                The Cabin Brewery
+              </Typography>
+            </Box>
             <Typography variant="body2" mb={2}>
               A cozy spot for beer enthusiasts, offering exceptional brews and memorable experiences.
             </Typography>
@@ -64,15 +74,14 @@ const Footer = () => {
           </Grid>
           
           <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" gutterBottom>Contact Us</Typography>
-            <Box component="address" sx={{ fontStyle: 'normal' }}>
-              <Typography variant="body2" mb={1}>123 Brewery Lane</Typography>
-              <Typography variant="body2" mb={1}>Cabin Hills, CH 54321</Typography>
+            <Typography variant="h6" gutterBottom>Contact Us</Typography>            <Box component="address" sx={{ fontStyle: 'normal' }}>
+              <Typography variant="body2" mb={1}>Diversion Road, Brgy Apopong</Typography>
+              <Typography variant="body2" mb={1}>General Santos City, Philippines</Typography>
               <Typography variant="body2" mb={1}>
-                Email: <Link href="mailto:info@cabinbrewery.com" color="inherit" underline="hover">info@cabinbrewery.com</Link>
+                Email: <Link href="mailto:thecabinbrewery@gmail.com" color="inherit" underline="hover">thecabinbrewery@gmail.com</Link>
               </Typography>
               <Typography variant="body2" mb={1}>
-                Phone: <Link href="tel:+15551234567" color="inherit" underline="hover">(555) 123-4567</Link>
+                Phone: <Link href="tel:+639690188797" color="inherit" underline="hover">0969 018 8797</Link>
               </Typography>
             </Box>
           </Grid>
