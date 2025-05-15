@@ -1,1 +1,1 @@
-export { default } from './RoomsPage';
+export { default } from './RoomsPage.jsx';
