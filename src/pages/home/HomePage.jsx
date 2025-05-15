@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { EventCard } from '../../components/common';
 import { events } from '../../data/events';
+import { images } from '../../assets/images';
 
 // Hero background
 const HeroBox = styled(Box)(({ theme }) => ({
-  background: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("/images/brewery-hero.jpg") no-repeat center/cover',
+  background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${images.hero}) no-repeat center/cover`,
   height: '80vh',
   display: 'flex',
   alignItems: 'center',
@@ -20,19 +21,19 @@ const features = [
   {
     title: 'Craft Beer Selection',
     description: 'Enjoy our handcrafted beers made with the finest ingredients and traditional brewing methods.',
-    image: '/images/craft-beer.jpg',
+    image: images.features.craftBeer,
     link: '/dining'
   },
   {
     title: 'KTV & Private Rooms',
     description: 'Book a private room or KTV for your parties and gatherings with friends and family.',
-    image: '/images/ktv-room.jpg',
+    image: images.features.ktvRoom,
     link: '/rooms'
   },
   {
     title: 'Brewery Tours',
     description: 'Learn about our brewing process with guided tours of our brewing facilities.',
-    image: '/images/brewery-tour.jpg',
+    image: images.features.breweryTour,
     link: '/events'
   }
 ];
@@ -195,8 +196,7 @@ const HomePage = () => {
           </Typography>
           <Typography variant="subtitle1" paragraph sx={{ mb: 4, maxWidth: '700px', mx: 'auto' }}>
             Join us for great beer, delicious food, and an unforgettable experience. Make your reservation now!
-          </Typography>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+          </Typography>          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
             <Button 
               component={Link}
               to="/dining"
@@ -224,6 +224,24 @@ const HomePage = () => {
               }}
             >
               Book KTV/Room
+            </Button>
+            <Button 
+              component={Link}
+              to="/parking"
+              variant="outlined" 
+              color="secondary"
+              size="large"
+              sx={{ 
+                px: 4,
+                borderColor: 'white', 
+                color: 'white',
+                '&:hover': {
+                  borderColor: 'white',
+                  bgcolor: 'rgba(255, 255, 255, 0.1)'
+                }
+              }}
+            >
+              Reserve Parking
             </Button>
           </Stack>
         </Container>
