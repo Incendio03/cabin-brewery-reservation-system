@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Typography, Button, Grid, Paper, Stack } from '@mui/material';
+import { Box, Container, Typography, Button, Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { EventCard } from '../../components/common';
@@ -15,28 +15,6 @@ const HeroBox = styled(Box)(({ theme }) => ({
   color: 'white',
   textAlign: 'center',
 }));
-
-// Feature items
-const features = [
-  {
-    title: 'Craft Beer Selection',
-    description: 'Enjoy our handcrafted beers made with the finest ingredients and traditional brewing methods.',
-    image: images.features.craftBeer,
-    link: '/dining'
-  },
-  {
-    title: 'KTV & Private Rooms',
-    description: 'Book a private room or KTV for your parties and gatherings with friends and family.',
-    image: images.features.ktvRoom,
-    link: '/rooms'
-  },
-  {
-    title: 'Brewery Tours',
-    description: 'Learn about our brewing process with guided tours of our brewing facilities.',
-    image: images.features.breweryTour,
-    link: '/events'
-  }
-];
 
 const HomePage = () => {
   // Just display upcoming events (next 4 events)
@@ -91,64 +69,7 @@ const HomePage = () => {
           </Stack>
         </Container>
       </HeroBox>
-
-      {/* Features Section */}
-      <Box sx={{ py: 8, bgcolor: 'background.default' }}>
-        <Container>
-          <Typography variant="h4" align="center" gutterBottom fontWeight={600}>
-            Our Offerings
-          </Typography>
-          <Typography variant="subtitle1" align="center" color="text.secondary" paragraph sx={{ mb: 6, maxWidth: '800px', mx: 'auto' }}>
-            Discover what makes The Cabin Brewery a unique destination for beer enthusiasts and all who appreciate a good time.
-          </Typography>
-          
-          <Grid container spacing={4}>
-            {features.map((feature, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Paper 
-                  elevation={2} 
-                  sx={{ 
-                    height: '100%', 
-                    borderRadius: 2,
-                    overflow: 'hidden',
-                    transition: 'transform 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                    }
-                  }}
-                >
-                  <Box 
-                    sx={{ 
-                      height: 200, 
-                      backgroundColor: 'grey.300', 
-                      backgroundImage: `url(${feature.image || "https://placehold.co/600x400/e9e0d0/2C1810?text=Feature"})`,
-                      backgroundPosition: 'center',
-                      backgroundSize: 'cover'
-                    }} 
-                  />
-                  <Box sx={{ p: 3 }}>
-                    <Typography variant="h5" gutterBottom fontWeight={600}>
-                      {feature.title}
-                    </Typography>
-                    <Typography variant="body1" paragraph color="text.secondary">
-                      {feature.description}
-                    </Typography>
-                    <Button 
-                      component={Link} 
-                      to={feature.link} 
-                      variant="text" 
-                      color="primary"
-                    >
-                      Learn More
-                    </Button>
-                  </Box>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
+      
       {/* Upcoming Events Section */}
       <Box sx={{ py: 8, bgcolor: 'grey.50' }}>
         <Container>
