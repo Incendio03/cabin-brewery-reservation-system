@@ -1,0 +1,42 @@
+// Mock data for user bookings
+export const userBookings = [
+  {
+    id: 1,
+    type: 'dining',
+    date: '2025-05-18',
+    time: '7:00 PM',
+    location: 'Main Brewery Restaurant',
+    guests: 4,
+    status: 'confirmed',
+    bookingReference: 'DR12345',
+  },
+  {
+    id: 2,
+    type: 'room',
+    date: '2025-05-20',
+    time: '6:00 PM - 10:00 PM',
+    location: 'Amber Room',
+    guests: 6,
+    status: 'confirmed',
+    bookingReference: 'KT67890',
+  },
+  {
+    id: 3,
+    type: 'event',
+    date: '2025-05-25',
+    time: '2:00 PM - 5:00 PM',
+    eventName: 'Beer Tasting Event',
+    tickets: 2,
+    status: 'confirmed',
+    bookingReference: 'EV24680',
+  },
+  {
+    id: 4,
+    type: 'parking',
+    date: '2025-05-25',
+    time: '1:30 PM - 5:30 PM',
+    location: 'Main Lot',
+    status: 'confirmed',
+    bookingReference: 'PK13579',
+  },
+];
