@@ -1,1 +1,2 @@
-export { default } from './EventsPage';
+import EventsPage from './EventsPage';
+export default EventsPage;

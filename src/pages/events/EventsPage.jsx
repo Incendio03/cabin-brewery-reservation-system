@@ -10,7 +10,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  TextField,
   Button,
   Dialog,
   DialogTitle,
@@ -72,7 +71,7 @@ const EventsPage = () => {
         {/* Events Grid */}
         <Grid container spacing={4} mb={6}>
           {events.map(event => (
-            <Grid item key={event.id} xs={12} sm={6} md={3}>
+            <Grid item key={event.id} xs={12} sm={6} md={4}>
               <EventCard event={event} onBookNow={handleBookEvent} />
             </Grid>
           ))}
