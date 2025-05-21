@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Box, Container, Typography, Grid, Paper, TextField, Button, Alert } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider, DatePicker, TimePicker } from '@mui/x-date-pickers';
+import MenuSelection from '../../components/booking/MenuSelection'; // Import MenuSelection
+import { menuItems as allMenuItems } from '../../data/menu'; // Import menu data
 
 // Placeholder for the InteractiveParkingMap component
 const InteractiveParkingMap = () => {
@@ -31,7 +33,8 @@ const DiningPage = () => {
     name: '',
     email: '',
     phone: '',
-    specialRequests: ''
+    specialRequests: '',
+    orderedItems: [] // To store selected menu items
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
@@ -55,6 +58,44 @@ const DiningPage = () => {
     console.log("Parking slot selected:", slot);
   };
 
+  const handleAddItem = (item) => {
+    setBookingDetails(prev => {
+      const existingItem = prev.orderedItems.find(orderedItem => orderedItem.id === item.id);
+      if (existingItem) {
+        return {
+          ...prev,
+          orderedItems: prev.orderedItems.map(orderedItem => 
+            orderedItem.id === item.id ? { ...orderedItem, quantity: orderedItem.quantity + 1 } : orderedItem
+          )
+        };
+      } else {
+        return {
+          ...prev,
+          orderedItems: [...prev.orderedItems, { ...item, quantity: 1 }]
+        };
+      }
+    });
+  };
+
+  const handleRemoveItem = (item) => {
+    setBookingDetails(prev => {
+      const existingItem = prev.orderedItems.find(orderedItem => orderedItem.id === item.id);
+      if (existingItem && existingItem.quantity > 1) {
+        return {
+          ...prev,
+          orderedItems: prev.orderedItems.map(orderedItem => 
+            orderedItem.id === item.id ? { ...orderedItem, quantity: orderedItem.quantity - 1 } : orderedItem
+          )
+        };
+      } else {
+        return {
+          ...prev,
+          orderedItems: prev.orderedItems.filter(orderedItem => orderedItem.id !== item.id)
+        };
+      }
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!bookingDetails.name || !bookingDetails.email || !bookingDetails.phone) {
@@ -65,7 +106,9 @@ const DiningPage = () => {
         setError("Each table can have a maximum of 6 chairs. Please adjust the number of chairs or tables.");
         return;
     }
-    console.log('Dining booking submitted:', bookingDetails);
+    // Calculate total for ordered items
+    const orderTotal = bookingDetails.orderedItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    console.log('Dining booking submitted:', { ...bookingDetails, orderTotal });
     setError(null);
     setSubmitted(true);
     // In a real app, this would submit to a server
@@ -90,6 +133,15 @@ const DiningPage = () => {
           <Typography>Tables: {bookingDetails.numTables}</Typography>
           <Typography>Chairs: {bookingDetails.numChairs}</Typography>
           {bookingDetails.parkingSlot && <Typography>Parking Slot: {bookingDetails.parkingSlot}</Typography>}
+          {bookingDetails.orderedItems.length > 0 && (
+            <Box mt={2}>
+              <Typography variant="subtitle1" fontWeight="bold">Order Summary:</Typography>
+              {bookingDetails.orderedItems.map(item => (
+                <Typography key={item.id}>{item.name} x {item.quantity} - ₱{(item.price * item.quantity).toFixed(2)}</Typography>
+              ))}
+              <Typography fontWeight="bold">Order Total: ₱{bookingDetails.orderedItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}</Typography>
+            </Box>
+          )}
           {bookingDetails.specialRequests && <Typography>Special Requests: {bookingDetails.specialRequests}</Typography>}
           <Button 
             variant="outlined" 
@@ -107,7 +159,8 @@ const DiningPage = () => {
                 name: '',
                 email: '',
                 phone: '',
-                specialRequests: ''
+                specialRequests: '',
+                orderedItems: []
               });
             }}
           >
@@ -254,6 +307,16 @@ const DiningPage = () => {
 
               <Grid item xs={12}>
                 <InteractiveParkingMap onParkingSelect={handleParkingSelect} />
+              </Grid>
+
+              {/* Menu Selection Section */}
+              <Grid item xs={12}>
+                <MenuSelection 
+                  menuItems={allMenuItems} 
+                  selectedItems={bookingDetails.orderedItems}
+                  onAddItem={handleAddItem}
+                  onRemoveItem={handleRemoveItem}
+                />
               </Grid>
 
               <Grid item xs={12} sx={{ mt: 2 }}>
