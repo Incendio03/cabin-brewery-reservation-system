@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Container, Typography, Grid, Paper, TextField, Button, Alert } from '@mui/material';
+import { Box, Container, Typography, Grid, Paper, TextField, Button, Alert, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider, DatePicker, TimePicker } from '@mui/x-date-pickers';
-import MenuSelection from '../../components/booking/MenuSelection'; // Import MenuSelection
-import { menuItems as allMenuItems } from '../../data/menu'; // Import menu data
+import { MenuSelection } from '../../components/booking';
+import { menuItems } from '../../data/menu'; // Correctly import menuItems
 
 // Placeholder for the InteractiveParkingMap component
 const InteractiveParkingMap = () => {
@@ -24,32 +24,38 @@ const DiningPage = () => {
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   const [bookingDetails, setBookingDetails] = useState({
-    numHeads: 1,
-    numTables: 1,
-    numChairs: 1,
-    date: tomorrow,
-    time: new Date(tomorrow.setHours(18, 0, 0)),
-    parkingSlot: null, // To store selected parking slot
     name: '',
     email: '',
     phone: '',
+    date: '',
+    time: '',
+    guests: 1,
+    heads: 1,
+    tables: 1,
+    chairs: 1,
     specialRequests: '',
-    orderedItems: [] // To store selected menu items
+    parkingSlot: '',
+    orderedItems: [], // Added for menu selection
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBookingDetails(prev => ({ ...prev, [name]: value }));
+  // Calculate total price for menu items
+  const calculateTotalPrice = () => {
+    return bookingDetails.orderedItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setBookingDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
   const handleDateChange = (newDate) => {
-    setBookingDetails(prev => ({ ...prev, date: newDate }));
+    setBookingDetails((prevDetails) => ({ ...prevDetails, date: newDate }));
   };
 
   const handleTimeChange = (newTime) => {
-    setBookingDetails(prev => ({ ...prev, time: newTime }));
+    setBookingDetails((prevDetails) => ({ ...prevDetails, time: newTime }));
   };
   
   // Placeholder for parking slot selection
@@ -59,117 +65,60 @@ const DiningPage = () => {
   };
 
   const handleAddItem = (item) => {
-    setBookingDetails(prev => {
-      const existingItem = prev.orderedItems.find(orderedItem => orderedItem.id === item.id);
+    setBookingDetails((prevDetails) => {
+      const existingItem = prevDetails.orderedItems.find((i) => i.id === item.id);
       if (existingItem) {
         return {
-          ...prev,
-          orderedItems: prev.orderedItems.map(orderedItem => 
-            orderedItem.id === item.id ? { ...orderedItem, quantity: orderedItem.quantity + 1 } : orderedItem
-          )
+          ...prevDetails,
+          orderedItems: prevDetails.orderedItems.map((i) =>
+            i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+          ),
         };
       } else {
         return {
-          ...prev,
-          orderedItems: [...prev.orderedItems, { ...item, quantity: 1 }]
+          ...prevDetails,
+          orderedItems: [...prevDetails.orderedItems, { ...item, quantity: 1 }],
         };
       }
     });
   };
 
   const handleRemoveItem = (item) => {
-    setBookingDetails(prev => {
-      const existingItem = prev.orderedItems.find(orderedItem => orderedItem.id === item.id);
+    setBookingDetails((prevDetails) => {
+      const existingItem = prevDetails.orderedItems.find((i) => i.id === item.id);
       if (existingItem && existingItem.quantity > 1) {
         return {
-          ...prev,
-          orderedItems: prev.orderedItems.map(orderedItem => 
-            orderedItem.id === item.id ? { ...orderedItem, quantity: orderedItem.quantity - 1 } : orderedItem
-          )
+          ...prevDetails,
+          orderedItems: prevDetails.orderedItems.map((i) =>
+            i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i
+          ),
         };
       } else {
         return {
-          ...prev,
-          orderedItems: prev.orderedItems.filter(orderedItem => orderedItem.id !== item.id)
+          ...prevDetails,
+          orderedItems: prevDetails.orderedItems.filter((i) => i.id !== item.id),
         };
       }
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!bookingDetails.name || !bookingDetails.email || !bookingDetails.phone) {
-      setError("Please fill out all required personal information fields.");
-      return;
-    }
-    if (bookingDetails.numChairs > bookingDetails.numTables * 6) {
-        setError("Each table can have a maximum of 6 chairs. Please adjust the number of chairs or tables.");
-        return;
-    }
-    // Calculate total for ordered items
-    const orderTotal = bookingDetails.orderedItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-    console.log('Dining booking submitted:', { ...bookingDetails, orderTotal });
-    setError(null);
-    setSubmitted(true);
-    // In a real app, this would submit to a server
+  const validateForm = () => {
+    const newErrors = {};
+    if (!bookingDetails.name) newErrors.name = "Name is required";
+    if (!bookingDetails.email) newErrors.email = "Email is required";
+    if (!bookingDetails.phone) newErrors.phone = "Phone number is required";
+    if (bookingDetails.chairs > bookingDetails.tables * 6) newErrors.chairs = "Each table can have a maximum of 6 chairs";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  if (submitted) {
-    return (
-      <Container sx={{ py: 4 }}>
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 2, textAlign: 'center' }}>
-          <Alert severity="success" sx={{ mb: 2 }}>
-            Your dining reservation has been received successfully!
-          </Alert>
-          <Typography variant="h6" gutterBottom>
-            Reservation Details
-          </Typography>
-          <Typography>Name: {bookingDetails.name}</Typography>
-          <Typography>Email: {bookingDetails.email}</Typography>
-          <Typography>Phone: {bookingDetails.phone}</Typography>
-          <Typography>Date: {bookingDetails.date.toLocaleDateString()}</Typography>
-          <Typography>Time: {bookingDetails.time.toLocaleTimeString()}</Typography>
-          <Typography>Guests: {bookingDetails.numHeads}</Typography>
-          <Typography>Tables: {bookingDetails.numTables}</Typography>
-          <Typography>Chairs: {bookingDetails.numChairs}</Typography>
-          {bookingDetails.parkingSlot && <Typography>Parking Slot: {bookingDetails.parkingSlot}</Typography>}
-          {bookingDetails.orderedItems.length > 0 && (
-            <Box mt={2}>
-              <Typography variant="subtitle1" fontWeight="bold">Order Summary:</Typography>
-              {bookingDetails.orderedItems.map(item => (
-                <Typography key={item.id}>{item.name} x {item.quantity} - ₱{(item.price * item.quantity).toFixed(2)}</Typography>
-              ))}
-              <Typography fontWeight="bold">Order Total: ₱{bookingDetails.orderedItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}</Typography>
-            </Box>
-          )}
-          {bookingDetails.specialRequests && <Typography>Special Requests: {bookingDetails.specialRequests}</Typography>}
-          <Button 
-            variant="outlined" 
-            color="primary" 
-            sx={{ mt: 3 }}
-            onClick={() => {
-              setSubmitted(false);
-              setBookingDetails({
-                numHeads: 1,
-                numTables: 1,
-                numChairs: 1,
-                date: tomorrow,
-                time: new Date(tomorrow.setHours(18, 0, 0)),
-                parkingSlot: null,
-                name: '',
-                email: '',
-                phone: '',
-                specialRequests: '',
-                orderedItems: []
-              });
-            }}
-          >
-            Make Another Reservation
-          </Button>
-        </Paper>
-      </Container>
-    );
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    // Submit logic here
+    console.log('Dining booking submitted:', bookingDetails);
+    setShowConfirmation(true);
+  };
 
   return (
     <Box py={4}>
@@ -187,45 +136,47 @@ const DiningPage = () => {
           <Typography variant="h5" gutterBottom color="primary.main" fontWeight={600}>
             Your Reservation Details
           </Typography>
-          {error && (
+          {Object.keys(errors).length > 0 && (
             <Alert severity="error" sx={{ mb: 3 }}>
-              {error}
+              {Object.values(errors).map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
             </Alert>
           )}
           <Box component="form" onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
-                  name="numHeads"
-                  label="Number of Heads"
+                  name="guests"
+                  label="Number of Guests"
                   type="number"
                   InputProps={{ inputProps: { min: 1 } }}
-                  value={bookingDetails.numHeads}
-                  onChange={handleChange}
+                  value={bookingDetails.guests}
+                  onChange={handleInputChange}
                   fullWidth
                   required
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
-                  name="numTables"
+                  name="tables"
                   label="Number of Tables"
                   type="number"
                   InputProps={{ inputProps: { min: 1 } }}
-                  value={bookingDetails.numTables}
-                  onChange={handleChange}
+                  value={bookingDetails.tables}
+                  onChange={handleInputChange}
                   fullWidth
                   required
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
-                  name="numChairs"
+                  name="chairs"
                   label="Number of Chairs"
                   type="number"
                   InputProps={{ inputProps: { min: 1 } }}
-                  value={bookingDetails.numChairs}
-                  onChange={handleChange}
+                  value={bookingDetails.chairs}
+                  onChange={handleInputChange}
                   fullWidth
                   required
                 />
@@ -267,7 +218,7 @@ const DiningPage = () => {
                   name="name"
                   label="Full Name"
                   value={bookingDetails.name}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   fullWidth
                   required
                 />
@@ -278,7 +229,7 @@ const DiningPage = () => {
                   label="Email"
                   type="email"
                   value={bookingDetails.email}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   fullWidth
                   required
                 />
@@ -288,7 +239,7 @@ const DiningPage = () => {
                   name="phone"
                   label="Phone Number"
                   value={bookingDetails.phone}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   fullWidth
                   required
                 />
@@ -298,7 +249,7 @@ const DiningPage = () => {
                   name="specialRequests"
                   label="Special Requests (Optional)"
                   value={bookingDetails.specialRequests}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   multiline
                   rows={3}
                   fullWidth
@@ -311,9 +262,10 @@ const DiningPage = () => {
 
               {/* Menu Selection Section */}
               <Grid item xs={12}>
-                <MenuSelection 
-                  menuItems={allMenuItems} 
-                  selectedItems={bookingDetails.orderedItems}
+                <Typography variant="h6" gutterBottom>Menu Selection</Typography>
+                <MenuSelection
+                  menuItems={menuItems} // Pass menuItems
+                  orderedItems={bookingDetails.orderedItems} // Changed from selectedItems to orderedItems
                   onAddItem={handleAddItem}
                   onRemoveItem={handleRemoveItem}
                 />
@@ -367,6 +319,43 @@ const DiningPage = () => {
             </Grid>
           </Grid>
         </Paper>
+
+        <Dialog open={showConfirmation} onClose={() => setShowConfirmation(false)}>
+          <DialogTitle>Booking Confirmation</DialogTitle>
+          <DialogContent>
+            <Typography variant="h6">Thank you for your reservation, {bookingDetails.name}!</Typography>
+            <Typography>An email confirmation will be sent to {bookingDetails.email}.</Typography>
+            <Divider sx={{ my: 2 }} />
+            <Typography variant="subtitle1" gutterBottom><strong>Booking Summary:</strong></Typography>
+            <Typography><strong>Date:</strong> {bookingDetails.date}</Typography>
+            <Typography><strong>Time:</strong> {bookingDetails.time}</Typography>
+            <Typography><strong>Guests:</strong> {bookingDetails.guests}</Typography>
+            <Typography><strong>Tables:</strong> {bookingDetails.tables}</Typography>
+            <Typography><strong>Chairs:</strong> {bookingDetails.chairs}</Typography>
+            {bookingDetails.parkingSlot && <Typography><strong>Parking Slot:</strong> {bookingDetails.parkingSlot}</Typography>}
+            {bookingDetails.specialRequests && <Typography><strong>Special Requests:</strong> {bookingDetails.specialRequests}</Typography>}
+            
+            {bookingDetails.orderedItems.length > 0 && (
+              <>
+                <Divider sx={{ my: 2 }} />
+                <Typography variant="subtitle1" gutterBottom><strong>Order Summary:</strong></Typography>
+                {bookingDetails.orderedItems.map(item => (
+                  <Typography key={item.id}>
+                    {item.name} (x{item.quantity}): ₱{(item.price * item.quantity).toFixed(2)}
+                  </Typography>
+                ))}
+                <Typography variant="h6" sx={{ mt: 1 }}>
+                  <strong>Order Total: ₱{calculateTotalPrice().toFixed(2)}</strong>
+                </Typography>
+              </>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setShowConfirmation(false)} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </Box>
   );

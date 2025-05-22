@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { EventCard } from '../../components/common';
 import { events } from '../../data/events';
-import { images } from '../../assets/images';
 
 // Hero background
 const HeroBox = styled(Box)(({ theme }) => ({
-  background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${images.hero}) no-repeat center/cover`,
+  background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/images/cabinPic.jpg') no-repeat center/cover`,
   height: '80vh',
   display: 'flex',
   alignItems: 'center',

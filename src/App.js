@@ -7,7 +7,6 @@ import DiningPage from './pages/dining';
 import RoomsPage from './pages/rooms';
 import BookingsPage from './pages/bookings';
 import EventsPage from './pages/events';
-import ParkingPage from './pages/parking';
 import NotFoundPage from './pages/NotFoundPage';
 import theme from './theme';
 import './App.css';
@@ -24,7 +23,6 @@ function App() {
             <Route path="/rooms" element={<RoomsPage />} />
             <Route path="/bookings" element={<BookingsPage />} />
             <Route path="/events" element={<EventsPage />} />
-            <Route path="/parking" element={<ParkingPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

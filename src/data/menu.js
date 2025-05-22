@@ -1,3 +1,4 @@
+// filepath: d:\Projects\cabin-brewery-reservation-system\src\data\menu.js
 export const menuItems = [
   {
     id: 'appetizer-1',

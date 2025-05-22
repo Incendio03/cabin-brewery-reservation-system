@@ -1,27 +1,23 @@
 import React, { useState } from 'react';
-import { 
-  AppBar, 
-  Box, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  IconButton, 
-  Container,
-  Menu,
-  MenuItem,
-  useMediaQuery,
-  useTheme,
+import { Link, useLocation } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
   Drawer,
   List,
   ListItem,
   ListItemText,
-  ListItemButton
+  Box,
+  useTheme,
+  useMediaQuery,
+  ListItemButton,
+  Container
 } from '@mui/material';
-import {
-  Menu as MenuIcon,
-  Close as CloseIcon
-} from '@mui/icons-material';
-import { Link, useLocation } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Header = () => {
   const location = useLocation();
@@ -33,7 +29,6 @@ const Header = () => {
     { text: 'Home', path: '/' },
     { text: 'Dining Reservation', path: '/dining' },
     { text: 'KTV/Rooms Booking', path: '/rooms' },
-    { text: 'Parking', path: '/parking' },
     { text: 'My Bookings', path: '/bookings' },
   ];
 

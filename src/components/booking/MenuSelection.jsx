@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// filepath: d:\Projects\cabin-brewery-reservation-system\src\components\booking\MenuSelection.jsx
+import React from 'react';
 import {
   Box,
   Typography,
@@ -6,11 +7,7 @@ import {
   Card,
   CardMedia,
   CardContent,
-  Button,
   IconButton,
-  Chip,
-  Stack,
-  TextField,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -53,7 +50,12 @@ const MenuItemCard = ({ item, onAddItem, onRemoveItem, quantity }) => {
   );
 };
 
-const MenuSelection = ({ menuItems, selectedItems, onAddItem, onRemoveItem }) => {
+const MenuSelection = ({ menuItems, orderedItems, onAddItem, onRemoveItem }) => {
+  // Add a guard clause for menuItems
+  if (!menuItems || menuItems.length === 0) {
+    return <Typography>No menu items available.</Typography>;
+  }
+
   const categories = [...new Set(menuItems.map(item => item.category))];
 
   return (
@@ -75,7 +77,7 @@ const MenuSelection = ({ menuItems, selectedItems, onAddItem, onRemoveItem }) =>
                     item={item} 
                     onAddItem={onAddItem} 
                     onRemoveItem={onRemoveItem} 
-                    quantity={selectedItems.find(si => si.id === item.id)?.quantity || 0}
+                    quantity={orderedItems.find(si => si.id === item.id)?.quantity || 0}
                   />
                 </Grid>
               ))}

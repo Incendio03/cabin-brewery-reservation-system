@@ -1,25 +1,36 @@
 // Mock data for rooms/KTV
-import { images } from '../assets/images';
 
 export const rooms = [
   {
-    id: 'ktv-vip-bar',
-    name: 'VIP KTV Bar Room',
-    type: 'KTV',
+    id: 1,
+    name: "VIP KTV Bar Room",
+    description: "Experience the ultimate entertainment in our VIP KTV Bar Room. Equipped with a state-of-the-art karaoke system, a fully stocked mini-bar, plush seating, and dynamic lighting. Perfect for parties and gatherings.",
     capacity: 20,
-    price: 3500.0,
-    description: 'Exclusive KTV room with a fully stocked bar, premium sound and lighting. Payment is consumable.',
-    amenities: ['Karaoke System', 'Private Bar', 'Premium Sound System', 'Comfortable Seating', 'Large Screen Display'],
-    image: images.rooms.vipKtvBarRoom || 'https://placehold.co/600x400/e9e0d0/2C1810?text=VIP+KTV+Bar',
+    price: 3500, // Price per night
+    amenities: ["Karaoke System", "Mini-Bar", "Comfortable Seating", "Private Restroom", "Soundproof Walls"],
+    images: [
+      "/images/rooms/vip_ktv_1.jpg",
+      "/images/rooms/vip_ktv_2.jpg",
+      "/images/rooms/vip_ktv_3.jpg",
+    ],
+    availability: true,
+    type: "KTV Room",
+    consumable: true,
   },
   {
-    id: 'vip-room',
-    name: 'VIP Room',
-    type: 'Private Room',
+    id: 2,
+    name: "VIP Room",
+    description: "Our exclusive VIP Room offers a luxurious and private space for your special occasions. Featuring elegant decor, premium furnishings, a dedicated service staff, and a customizable ambiance. Ideal for intimate celebrations or high-profile meetings.",
     capacity: 30,
-    price: 5000.0,
-    description: 'Spacious VIP room for larger gatherings, perfect for private parties or corporate events. Payment is consumable.',
-    amenities: ['Private Bar', 'Lounge Seating', 'Projector and Screen', 'Dedicated Staff', 'Customizable Layout'],
-    image: images.rooms.vipRoom || 'https://placehold.co/600x400/e9e0d0/2C1810?text=VIP+Room',
+    price: 5000, // Price per night
+    amenities: ["Luxury Furnishings", "Dedicated Staff", "Customizable Lighting", "Private Bar Access", "HD Projector"],
+    images: [
+      "/images/rooms/vip_room_1.jpg",
+      "/images/rooms/vip_room_2.jpg",
+      "/images/rooms/vip_room_3.jpg",
+    ],
+    availability: true,
+    type: "VIP Lounge",
+    consumable: true,
   },
 ];
