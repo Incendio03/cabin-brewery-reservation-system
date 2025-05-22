@@ -1,97 +1,48 @@
-# The Cabin Brewery - Reservation System
+# 🍻 The Cabin Brewery – Reservation System
 
-A web-based management system for "The Cabin Brewery" - a demonstration project showcasing a complete reservation and management platform for a brewery with multiple services.
+> ⚠️ **Note:** This is an **ongoing project**. Some features may be incomplete or non-functional as development is still in progress.
+
+A web-based management system for **The Cabin Brewery** — a demonstration project showcasing a complete reservation and management platform for a brewery offering multiple services such as dining, KTV room bookings, and event management.
+
+---
 
 ## Features
 
-- **Home Page**: Display upcoming events and brewery information
-- **Dining Reservations**: Book tables in different dining areas
-- **KTV/Room Bookings**: Reserve private rooms and KTV rooms
-- **Event Management**: View and purchase tickets for upcoming events
-- **Booking Management**: View and manage all user bookings in one place
+- **Home Page**  
+  Displays brewery information and highlights upcoming events.
+
+- **Dining Reservations**  
+  Allows users to book tables in different dining areas.
+
+- **KTV/Room Bookings**  
+  Enables reservations for private rooms and KTV experiences.
+
+- **Event Management**  
+  Users can view and purchase tickets for upcoming events.
+
+- **Booking Management**  
+  Centralized view for users to manage all their reservations.
+
+---
 
 ## Technologies Used
 
-- React 19
-- React Router v6
-- Material UI
-- Date-FNS for date handling
+- React 19  
+- React Router v6  
+- Material UI  
+- Date-FNS (for date handling)
 
-## Project Structure
+---
 
-```
-src/
-  ├── assets/             # Static assets like images
-  ├── components/
-  │   ├── booking/        # Booking-related components
-  │   ├── common/         # Reusable components
-  │   └── layout/         # Layout components (Header, Footer)
-  ├── data/               # Mock data for the demo
-  └── pages/              # Page components for each route
-```
+## Preview
 
-## Getting Started
+![image](https://github.com/user-attachments/assets/bb2a1b78-656b-4307-8101-ba3d078c8543)
+![image](https://github.com/user-attachments/assets/0eb68b01-a73c-4475-8f51-df620d365860)
+![image](https://github.com/user-attachments/assets/8b00654d-a94c-4fd9-85e0-52f3795ac5c2)
+![image](https://github.com/user-attachments/assets/1900e792-fdc2-41a1-99c4-f444f5ec8dbc)
+![image](https://github.com/user-attachments/assets/65dbc48c-9867-42ba-894e-c332d0d6af61)
+![image](https://github.com/user-attachments/assets/9b36fabb-9a73-4a3f-8829-ba460919a998)
+![image](https://github.com/user-attachments/assets/7fdeb7bb-ca20-4322-87b3-9e8d19f7228e)
+![image](https://github.com/user-attachments/assets/15619826-e3b3-42f5-ab93-b89b342fbf06)
 
-1. Clone this repository
-2. Install dependencies with `npm install`
-3. Start the development server with `npm start`
-4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
